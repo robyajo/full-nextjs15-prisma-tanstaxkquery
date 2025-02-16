@@ -6,7 +6,13 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { TanstackProvider } from "@/providers/tanstack-provider";
+import { Metadata } from "next";
 import { cookies } from "next/headers";
+
+export const metadata: Metadata = {
+  title: `${process.env.NEXT_PUBLIC_APP_NAME}`,
+  description: `${process.env.NEXT_PUBLIC_APP_NAME} is a platform for developers to share and find resources, tools, and projects.`,
+};
 export default async function LayoutAdmin({
   children,
 }: {
