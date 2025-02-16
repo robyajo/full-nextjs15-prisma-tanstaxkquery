@@ -6,7 +6,7 @@ import { NavItem } from "@/types";
 export const navDashboard: NavItem[] = [
   {
     title: 'Dashboard',
-    url: '/admin/dashboard',
+    url: '/dashboard',
     icon: 'dashboard',
     isActive: false,
     shortcut: ['d', 'd'],
@@ -14,7 +14,7 @@ export const navDashboard: NavItem[] = [
   },
   {
     title: 'Post',
-    url: '/admin/post',
+    url: '/dashboard/post',
     icon: 'post',
     isActive: false,
     shortcut: ['d', 'd'],
