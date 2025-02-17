@@ -38,16 +38,16 @@ export type MainNavItem = NavItemWithOptionalChildren;
 export type SidebarNavItem = NavItemWithChildren;
 
 
-
-export interface MarketPlaceType {
-    uuid: string;
+export interface Tags {
+    id: string;
     name: string;
-    logo: string;
-    logo_path: string;
-}
+  }
 
-export interface ResponseMarketPlace {
-    data: {
-        data: MarketPlaceType[];
-    };
-}
+  export interface FormInputPost {
+    title: string;
+    content: string;
+    tags: string;
+
+  }
+
+

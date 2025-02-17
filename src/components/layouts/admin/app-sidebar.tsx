@@ -39,7 +39,7 @@ export const company = {
 };
 const data = {
   user: {
-    name: "shadcn",
+    name: "roby",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },

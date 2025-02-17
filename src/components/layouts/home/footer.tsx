@@ -4,7 +4,7 @@ import { Github, Twitter, DiscIcon as Discord } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <footer className="border-t bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mt-auto">
       <div className="container py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>
@@ -60,7 +60,7 @@ export function Footer() {
                   href="/support"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Support
+                  Support sss
                 </Link>
               </li>
             </ul>
