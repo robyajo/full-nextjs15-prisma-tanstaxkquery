@@ -1,3 +1,5 @@
+import { auth, signOut } from "@/auth";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,13 +7,22 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
   return (
     <>
       <div className="flex flex-1 flex-col space-y-4">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-2xl font-bold tracking-tight">
-            Hi, Welcome back 👋
+            Hi, Welcome back 👋{" "}
+            <form
+              action={async () => {
+                "use server";
+                await signOut();
+              }}
+            >
+              <Button type="submit">Sign Out</Button>
+            </form>
           </h2>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -115,6 +126,7 @@ export default function Page() {
             </CardContent>
           </Card>
         </div>
+        <pre>{JSON.stringify(session, null, 2)}</pre>
       </div>
     </>
   );

@@ -1,13 +1,14 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Search, Wallet } from "lucide-react";
+import { Lock, Menu, Search, Wallet } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import CustomLink from "./menu-items";
+import { cn } from "@/lib/utils";
 
 export function Navigation() {
   const [isConnected, setIsConnected] = useState(false);
@@ -51,14 +52,12 @@ export function Navigation() {
               />
             </div>
           </div>
-          <Button
-            variant="outline"
-            className="ml-auto hidden md:flex"
-            onClick={() => setIsConnected(!isConnected)}
+          <Link
+            href={"auth"}
+            className={cn(buttonVariants(), "text-xs md:text-sm")}
           >
-            <Wallet className="mr-2 h-4 w-4" />
-            {isConnected ? "0x1234...5678" : "Connect Wallet"}
-          </Button>
+            Masuk
+          </Link>
         </div>
       </div>
     </header>
