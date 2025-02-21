@@ -32,9 +32,12 @@ import loginSchema from "./lib/schema-login";
 import { toast } from "sonner";
 import { login } from "./action/login";
 import GoogleLogin from "./google/google-button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function FormLogin() {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -61,7 +64,7 @@ export default function FormLogin() {
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         // Redirect manual setelah toast
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
       } catch (error) {
         toast.error("Terjadi kesalahan. Silakan coba lagi.");
         console.error("Login error:", error);
@@ -116,7 +119,21 @@ export default function FormLogin() {
               </LoadingButton>
             </form>
           </Form>
+          <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+            <span className="relative z-10 bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
           <GoogleLogin />
+          <div className="text-center text-sm">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/auth/register"
+              className="underline underline-offset-4"
+            >
+              Register
+            </Link>
+          </div>
         </CardContent>
       </Card>
     </>

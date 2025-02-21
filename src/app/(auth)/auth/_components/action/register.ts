@@ -3,6 +3,7 @@
 import registerSchema from "@/app/(auth)/auth/_components/lib/schema-register";
 import { prismaDB } from "@/lib/prisma";
 import bcrypt, { hash } from "bcryptjs";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const register = async (values: z.infer<typeof registerSchema>) => {

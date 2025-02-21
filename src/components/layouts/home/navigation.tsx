@@ -53,7 +53,7 @@ export function Navigation() {
             </div>
           </div>
           <Link
-            href={"auth"}
+            href={"auth/login"}
             className={cn(buttonVariants(), "text-xs md:text-sm")}
           >
             Masuk
