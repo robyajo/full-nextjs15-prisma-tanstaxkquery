@@ -10,9 +10,10 @@ import { useState } from "react";
 import CustomLink from "./menu-items";
 import { cn } from "@/lib/utils";
 
+import { useSession } from "next-auth/react";
+
 export function Navigation() {
-  const [isConnected, setIsConnected] = useState(false);
-  const pathname = usePathname();
+  const { data: session } = useSession();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -52,12 +53,21 @@ export function Navigation() {
               />
             </div>
           </div>
-          <Link
-            href={"auth/login"}
-            className={cn(buttonVariants(), "text-xs md:text-sm")}
-          >
-            Masuk
-          </Link>
+          {session ? (
+            <Link
+              href={"dashboard"}
+              className={cn(buttonVariants(), "text-xs md:text-sm")}
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <Link
+              href={"auth/login"}
+              className={cn(buttonVariants(), "text-xs md:text-sm")}
+            >
+              Masuk
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -10,6 +10,14 @@ export default {
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+          scope: "openid email profile",
+        },
+      },
     }),
     Credentials({
       async authorize(credentials) {
@@ -47,7 +55,10 @@ export default {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session, account }) {
+      if (account && account.type === "oauth" && user) {
+        token.image = user.image; // Pastikan image tersimpan di token
+      }
       if (trigger === "update" && session?.name) {
         token.name = session.name;
       }

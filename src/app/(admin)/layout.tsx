@@ -20,19 +20,15 @@ export default async function LayoutAdmin({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get("sidebar:state")?.value === "false";
   const session = await auth();
-  // if (!session) {
-  //   return nextRedirect("/auth/login");
-  // }
   if (!session) {
-    unauthorized();
+    return nextRedirect("/auth/login");
   }
+
   return (
     <>
       <SidebarProvider>
-        <AppSidebar />
+        <AppSidebar session={session} />
 
         <SidebarInset>
           <Header />

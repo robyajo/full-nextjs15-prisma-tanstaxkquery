@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,9 @@ export default function RootLayout({
           <NuqsAdapter>
             <Toaster />
             <SonnerToaster />
-            <div vaul-drawer-wrapper="">{children}</div>
+            <SessionProvider>
+              <div vaul-drawer-wrapper="">{children}</div>
+            </SessionProvider>
           </NuqsAdapter>
         </ThemeProvider>
       </body>

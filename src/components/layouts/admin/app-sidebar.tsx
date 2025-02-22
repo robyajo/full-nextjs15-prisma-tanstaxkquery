@@ -1,67 +1,24 @@
-"use client";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  AudioWaveform,
-  BadgeCheck,
-  ChevronRight,
-  ChevronsUpDown,
-  Command,
-  GalleryVerticalEnd,
-  LogOut,
-} from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { AudioWaveform, Command, GalleryVerticalEnd } from "lucide-react";
 import * as React from "react";
-import { Icons } from "@/components/icons";
-import { toast } from "sonner";
 import NavMenu from "./nav-menu";
 import { NavUser } from "./nav-user";
+import { auth } from "@/auth";
 
 export const company = {
   name: `${process.env.NEXT_PUBLIC_APP_NAME}`,
   logo: GalleryVerticalEnd,
   plan: "Transaction Rekap",
 };
-const data = {
-  user: {
-    name: "roby",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-};
-export default function AppSidebar() {
+
+export default async function AppSidebar({ session }: any) {
   return (
     <>
       <Sidebar collapsible="icon" variant="floating">
@@ -80,7 +37,7 @@ export default function AppSidebar() {
           <NavMenu />
         </SidebarContent>
         <SidebarFooter>
-          <NavUser user={data.user} />
+          <NavUser user={session.user as any} />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>

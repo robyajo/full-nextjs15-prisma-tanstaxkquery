@@ -6,6 +6,7 @@ import { z } from "zod";
 import loginSchema from "../lib/schema-login";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
 export const login = async (values: z.infer<typeof loginSchema>) => {
   try {
@@ -46,9 +47,8 @@ export const login = async (values: z.infer<typeof loginSchema>) => {
       await signIn("credentials", {
         email: userExists.email,
         password: password,
-        redirect: false,
+        redirect: false, // Jangan otomatis alihkan setelah login berhasil
       });
-
       return { success: "Login berhasil" };
     } catch (error) {
       if (error instanceof AuthError) {

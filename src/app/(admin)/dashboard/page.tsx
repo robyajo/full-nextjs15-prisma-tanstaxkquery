@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 export default async function Page() {
   const session = await auth();
   return (
@@ -18,7 +19,7 @@ export default async function Page() {
             <form
               action={async () => {
                 "use server";
-                await signOut();
+                await signOut({});
               }}
             >
               <Button type="submit">Sign Out</Button>
@@ -26,6 +27,13 @@ export default async function Page() {
           </h2>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {/* <Image
+            src={session?.user.image || ""}
+            alt="Profile picture"
+            width={96} // Sesuaikan dengan kebutuhan
+            height={96} // Sesuaikan dengan kebutuhan
+            className="rounded-full" // Opsional, untuk membuat gambar bulat
+          /> */}
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">

@@ -2,43 +2,36 @@ import NextAuth from "next-auth";
 import authConfig from "./auth.config";
 import { NextResponse } from "next/server";
 import { privateRoutes, adminRoutes } from "./routes";
+
 const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
   const { nextUrl, auth } = req;
-  const isLoggedIn = !!req.auth;
-  const isAdmin = req.auth?.user?.role === "admin";
-  const isUser = req.auth?.user?.role === "user";
-
-  // const { nextUrl } = req;
-  const sessionUser = auth?.user;
-  console.log("\n user in middleware:>> ", sessionUser);
-  console.log("ROUTE:", nextUrl.pathname);
-  console.log("IS LOGGED IN:", isLoggedIn);
-  console.log("IS ADMIN:", isAdmin);
+  const isLoggedIn = !!auth;
+  const isAdmin = auth?.user?.role === "admin";
   const url = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
-  const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
-  const isAuthRoute = nextUrl.pathname.includes("/auth");
-  const isApiRoute = nextUrl.pathname.includes("/api");
 
+  const isPrivateRoute = privateRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = nextUrl.pathname.startsWith("/auth");
+  const isApiRoute = nextUrl.pathname.startsWith("/api");
   const isAdminRoute = adminRoutes.includes(nextUrl.pathname);
 
   if (isApiRoute) {
-    return;
-  }
-  if (isLoggedIn && isAuthRoute) {
-    return Response.redirect(`${url}/dashboard`);
-  }
-  if (isAuthRoute && !isLoggedIn) {
-    return;
-  }
-  if (!isLoggedIn && isPrivateRoute) {
-    return Response.redirect(`${url}/auth/login`);
+    return NextResponse.next();
   }
 
-  if (nextUrl.pathname.startsWith("/dashboard/post") && !isAdmin) {
+  if (isLoggedIn && isAuthRoute) {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
+  }
+
+  if (!isLoggedIn && isPrivateRoute) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
+
+  if (isAdminRoute && !isAdmin) {
     return NextResponse.rewrite(new URL("/forbidden", req.url));
   }
+
   return NextResponse.next();
 });
 
